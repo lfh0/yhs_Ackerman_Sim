@@ -32,6 +32,7 @@
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
           args="-urdf -model fw_mid -param robot_description -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -R $(arg R_pos) -P $(arg P_pos) -Y $(arg Y_pos)"/> 
       
+  <node name="robot_rviz" pkg="rviz" type="rviz" args="-d $(find fw-mid)/config/robot.rviz" />
 
   <include file="$(find fw-mid)/launch/control.launch">
   </include>

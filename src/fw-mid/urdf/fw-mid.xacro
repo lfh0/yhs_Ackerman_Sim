@@ -330,6 +330,120 @@
         <limit effort="10" velocity="1000" />
     </joint>
 
-  <xacro:include filename="$(find fw-mid)/urdf/fw-mid.gazebo" />
+    <!-- IMU frame -->
+    <link name="imu_link"> 
+        <visual> 
+        <geometry> 
+            <box size="0.01 0.01 0.002"/> 
+        </geometry> 
+        <material name="green_mat">
+            <color rgba="0 1 0 1"/>
+        </material>
+        </visual> 
+        <inertial> 
+        <mass value="0.001"/> 
+        <origin xyz="0 0 0"/> 
+        <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/> 
+        </inertial> 
+    </link>
+
+    <joint name="imu_joint" type="fixed">
+        <origin xyz="0 0 0.35" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="imu_link" />
+    </joint>
+
+    <gazebo reference="imu_link">
+        <gravity>true</gravity>
+        <sensor name="imu_sensor" type="imu">
+        <always_on>true</always_on>
+        <update_rate>200</update_rate>
+        <visualize>true</visualize>
+        <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+            <topicName>/livox/imu</topicName>
+            <bodyName>imu_link</bodyName>
+            <updateRateHZ>200.0</updateRateHZ>
+            <gaussianNoise>0.0</gaussianNoise>
+            <xyzOffset>0 0 0</xyzOffset>
+            <rpyOffset>0 0 0</rpyOffset>
+            <frameName>imu_link</frameName>
+            <initialOrientationAsReference>false</initialOrientationAsReference>
+        </plugin>
+        <pose>0 0 0 0 0 0</pose>
+        </sensor>
+    </gazebo>
+
+        <!-- mid360 frame -->
+    <link name="mid360_link"> 
+        <visual> 
+        <geometry> 
+            <mesh filename="package://fw-mid/meshes/livox_mid-360-90x.dae" scale="1 1 1"/>
+        </geometry> 
+        <material name="green_mat">
+            <color rgba="1 0 0 1"/>
+        </material>
+        </visual> 
+        <inertial> 
+        <mass value="0.001"/> 
+        <origin xyz="0 0 0" rpy="0 0 0"/> 
+        <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/> 
+        </inertial> 
+    </link>
+
+    <joint name="mid360_joint" type="fixed">
+        <origin xyz="-0.011 -0.02329 0" rpy="0 0 3.1415926" />
+        <parent link="imu_link" />
+        <child link="mid360_link" />
+    </joint>
+
+    <gazebo reference="mid360_link">
+        <gravity>true</gravity>
+        <sensor type="ray" name="laser_livox">
+            <pose>0 0 0.04412 0 0 0</pose>
+            <visualize>true</visualize>
+            <always_on>True</always_on>
+            <update_rate>10</update_rate>
+            <plugin name="gazebo_ros_laser_controller" filename="package://fw-mid/meshes/liblivox_laser_simulation.so">
+            <ray>
+                <scan>
+                <horizontal>
+                    <samples>100</samples>
+                    <resolution>1</resolution>
+                    <min_angle>-3.1415926535897931</min_angle>
+                    <max_angle>3.1415926535897931</max_angle>
+                </horizontal>
+                <vertical>
+                    <samples>50</samples>
+                    <resolution>1</resolution>
+                    <min_angle>-3.1415926535897931</min_angle>
+                    <max_angle>3.1415926535897931</max_angle>
+                </vertical>
+                </scan>
+                <range>
+                <min>0.1</min>
+                <max>10</max>
+                <resolution>1</resolution>
+                </range>
+                <noise>
+                <type>gaussian</type>
+                <mean>0.0</mean>
+                <stddev>0.0</stddev>
+                </noise>
+            </ray>
+                <visualize>false</visualize>
+                <samples>20000</samples>
+                <downsample>1</downsample>
+                <csv_file_name>mid360-real-centr.csv</csv_file_name>
+                <publish_pointcloud_type>3</publish_pointcloud_type>
+                <ros_topic>/livox/lidar</ros_topic>
+                <frameName>mid360_link</frameName>
+            </plugin>
+            </sensor>
+    </gazebo>
+
+
+
+
+    <xacro:include filename="$(find fw-mid)/urdf/fw-mid.gazebo" />
 
 </robot>
