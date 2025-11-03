@@ -10,24 +10,24 @@ class CmdVel2Gazebo:
         rospy.init_node('cmdvel2gazebo_4ws4wd', anonymous=True)
         
         # 订阅者
-        rospy.Subscriber('/cmd_vel', Twist, self.callback, queue_size=1)
+        rospy.Subscriber('/car1/cmd_vel', Twist, self.callback, queue_size=1)
         
         # 四轮转向和驱动发布器
         self.steer_pubs = [
             rospy.Publisher(n, Float64, queue_size=1) for n in [
-                '/fw_mid/front_right_steering_position_controller/command',
-                '/fw_mid/front_left_steering_position_controller/command',
-                '/fw_mid/rear_right_steering_position_controller/command',
-                '/fw_mid/rear_left_steering_position_controller/command'
+                '/car1/front_right_steering_position_controller/command',
+                '/car1/front_left_steering_position_controller/command',
+                '/car1/rear_right_steering_position_controller/command',
+                '/car1/rear_left_steering_position_controller/command'
             ]
         ]
         
         self.drive_pubs = [
             rospy.Publisher(n, Float64, queue_size=1) for n in [
-                '/fw_mid/front_left_velocity_controller/command',
-                '/fw_mid/front_right_velocity_controller/command',
-                '/fw_mid/rear_left_velocity_controller/command',
-                '/fw_mid/rear_right_velocity_controller/command'
+                '/car1/front_left_velocity_controller/command',
+                '/car1/front_right_velocity_controller/command',
+                '/car1/rear_left_velocity_controller/command',
+                '/car1/rear_right_velocity_controller/command'
             ]
         ]
 

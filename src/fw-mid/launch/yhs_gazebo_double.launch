@@ -14,6 +14,14 @@
     <arg name="car1_P_pos" default="0"/>
     <arg name="car1_Y_pos" default="0"/>
 
+    <arg name="car2_x_pos" default="-5"/>
+    <arg name="car2_y_pos" default="0"/>
+    <arg name="car2_z_pos" default="0.5"/>
+    <arg name="car2_R_pos" default="0"/>
+    <arg name="car2_P_pos" default="0"/>
+    <arg name="car2_Y_pos" default="0"/>
+
+
 
 	<!--运行gazebo仿真环境-->
 	<include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -27,19 +35,23 @@
   </include>
 
 	<!-- 加载机器人模型描述参数 -->
-	<group ns="car1">
+  <group ns="car1">
     <param name="vehicle_name" value="car1"/>
     <param name="car1/robot_description" command="$(find xacro)/xacro --inorder '$(find fw-mid)/urdf/car1_fw-mid.xacro'"/>
     <node name="spawn_car1" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model car1 -param robot_description -x $(arg car1_x_pos) -y $(arg car1_y_pos) -z $(arg car1_z_pos) -R $(arg car1_R_pos) -P $(arg car1_P_pos) -Y $(arg car1_Y_pos)" />
   </group>
 
+  <group ns="car2">
+    <param name="vehicle_name" value="car2"/>
+    <param name="car2/robot_description" command="$(find xacro)/xacro --inorder '$(find fw-mid)/urdf/car2_fw-mid.xacro'"/>
+    <node name="spawn_car2" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model car2 -param robot_description -x $(arg car2_x_pos) -y $(arg car2_y_pos) -z $(arg car2_z_pos) -R $(arg car2_R_pos) -P $(arg car2_P_pos) -Y $(arg car2_Y_pos)" />
+  </group>
 
+  
   <node name="robot_rviz" pkg="rviz" type="rviz" args="-d $(find fw-mid)/config/robot.rviz" />
 
-  <include file="$(find fw-mid)/launch/control.launch">
+  <include file="$(find fw-mid)/launch/control_double.launch">
   </include>
-
-
 
 </launch>
 

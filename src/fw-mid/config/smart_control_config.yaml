@@ -1,4 +1,4 @@
-fw_mid:
+car1:
 # controls the rear two tires based on individual motors
   # Publish all joint states -----------------------------------
   joint_state_controller:
@@ -39,6 +39,50 @@ fw_mid:
     type: effort_controllers/JointPositionController
     joint: rear_left_steering_hinge_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
+
+car2:
+# controls the rear two tires based on individual motors
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50  
+  rear_right_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: right_rear_wheel_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  rear_left_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: left_rear_wheel_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  front_right_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: right_front_wheel_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  front_left_velocity_controller:
+    type: velocity_controllers/JointVelocityController
+    joint: left_front_wheel_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  front_right_steering_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: right_steering_hinge_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}   
+  front_left_steering_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: left_steering_hinge_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+    
+  rear_right_steering_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: rear_right_steering_hinge_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}   
+  rear_left_steering_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: rear_left_steering_hinge_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+
 
   # gazebo_ros_control:
   #   pid_gains:

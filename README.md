@@ -45,3 +45,21 @@ line:
 ```
 ## 4. livox mid360雷达参数
 以10 Hz的频率更新点云，以200 Hz的频率推送IMU数据。IMU数据包含3轴加速度和3轴角速度，其方向与点云坐标相同。IMU芯片在点云坐标中的位置为`x=11.0mm y=23.29mm z=-44.12mm`
+
+
+## 5.增加多车仿真
+  **切记检查world文件中是否已经将小车的模型加载进去，否则会导致出现多个车的情况**：
+
+  `1`:在urdf文件夹中复制 car1_fw-mid car1_fw-mid car1_macros 文件，分别命名为 car(n)_fw-mid car(n)_fw-mid car(n)_macros。
+
+  `2`.在三个文件中将所有的car1替换成car(n)
+
+  `3`.在yhs_gazebo.launch文件中添加car(n)的模型加载
+
+  `4`.在control.launch文件中增加小车的控制模型
+
+  `5`.在smart_control_config.yaml文件中增加小车的控制模型
+
+  `6`.复制cmdvel2gazebo.py文件增加小车的键盘控制
+  
+  上述复制皆可以在文件中直接搜索car1将其替换成car(n)

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<robot name="fw_mid" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="car1" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:include filename="$(find fw-mid)/urdf/macros.xacro" />
+    <xacro:include filename="$(find fw-mid)/urdf/car1_macros.xacro" />
     
     <link name="base_footprint">
         <!-- <visual>
@@ -360,7 +360,7 @@
         <update_rate>200</update_rate>
         <visualize>true</visualize>
         <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
-            <topicName>/livox/imu</topicName>
+            <topicName>/car1_livox/imu</topicName>
             <bodyName>imu_link</bodyName>
             <updateRateHZ>200.0</updateRateHZ>
             <gaussianNoise>0.0</gaussianNoise>
@@ -435,7 +435,7 @@
                 <downsample>1</downsample>
                 <csv_file_name>mid360-real-centr.csv</csv_file_name>
                 <publish_pointcloud_type>3</publish_pointcloud_type>
-                <ros_topic>/livox/lidar</ros_topic>
+                <ros_topic>/car1_livox/lidar</ros_topic>
                 <frameName>mid360_link</frameName>
             </plugin>
             </sensor>
@@ -444,6 +444,6 @@
 
 
 
-    <xacro:include filename="$(find fw-mid)/urdf/fw-mid.gazebo" />
+    <xacro:include filename="$(find fw-mid)/urdf/car1_fw-mid.gazebo" />
 
 </robot>
