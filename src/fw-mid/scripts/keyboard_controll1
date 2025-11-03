@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+
+import rospy
+
+from ackermann_msgs.msg import AckermannDrive
+from geometry_msgs.msg import Twist
+import sys, select, termios, tty
+
+banner = """
+1. Reading from the keyboard  
+2. Publishing to AckermannDriveStamped!
+---------------------------
+        w
+   a    s    d
+anything else : stop
+--------------------------
+  key:(speed,steer)
+  w:(0.2,0)
+  d:(0,-0.5)
+  a:(0,0.5)
+  s:(-0.4,0)
+CTRL-C to quit
+"""
+
+keyBindings = {
+  'w':(0.5,0),
+  'd':(0,-0.5),
+  'a':(0,0.5),
+  's':(-0.7,0),
+}
+
+def getKey():
+  tty.setraw(sys.stdin.fileno())
+  select.select([sys.stdin], [], [], 0)
+  key = sys.stdin.read(1)
+  termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+  return key
+
+def vels(speed,turn):
+  return "currently:\tspeed %s\tturn %s " % (speed,turn)
+
+if __name__=="__main__":
+  settings = termios.tcgetattr(sys.stdin)
+  pub = rospy.Publisher("/car1/cmd_vel", Twist,queue_size=1)
+  rospy.init_node('keyop1')
+  print(banner)
+
+  x = 0
+  th = 0
+  status = 0
+
+  _msg = Twist()
+
+  try:
+    while(1):
+        key = getKey()
+        if key in keyBindings.keys():
+            x = keyBindings[key][0]
+            th = keyBindings[key][1]
+            _msg.linear.x = 0.2+x
+            _msg.angular.z = th
+        else:
+            _msg.linear.x = 0
+            _msg.angular.z = 0
+            
+            if (key == '\x03'):
+              pub.publish(_msg)
+              break
+        
+        if _msg.linear.x > 3.0:
+          _msg.linear.x = 3.0
+        elif _msg.linear.x < -3.0:
+          _msg.linear.x = -3.0
+
+        if _msg.angular.z > 25.0:
+          _msg.angular.z = 25.0
+        elif _msg.angular.z < -25.0:
+          _msg.angular.z = -25.0
+          
+        pub.publish(_msg)
+       
+  except:
+    print("error")
+
+  finally:
+    _msg.linear.x = 0
+    _msg.angular.z = 0

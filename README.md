@@ -2,7 +2,11 @@
 
 ## 1. 启动文件
 仿真启动文件：`roslaunch fw-mid yhs_gazebo.launch`
-键盘控制节点：`rosrun fw-mid keyboard_controll`
+多车仿真启动文件：`roslaunch fw-mid yhs_gazebo_double.launch`
+
+键盘控制节点：`rosrun fw-mid keyboard_controll1`
+键盘控制节点：`rosrun fw-mid keyboard_controll2`
+
 
 ## 2. yhs小车选择档位
 在 `control.launch` 文件中，找到如下行：
