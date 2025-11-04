@@ -37,7 +37,7 @@ class OdometryNode:
     def sub_robot_pose_update(self, msg):
         # Find the index of the racecar
         try:
-            arrayIndex = msg.name.index('fw_mid::base_footprint')
+            arrayIndex = msg.name.index('car1::car1_base_footprint')
         except ValueError as e:
             # Wait for Gazebo to startup
             pass
@@ -54,7 +54,7 @@ class OdometryNode:
         cmd = Odometry()
         cmd.header.stamp = self.last_recieved_stamp
         cmd.header.frame_id = 'odom'
-        cmd.child_frame_id = 'base_footprint'
+        cmd.child_frame_id = 'car1_base_footprint'
         cmd.pose.pose = self.last_received_pose
         cmd.twist.twist = self.last_received_twist
         cmd.pose.covariance =[1e-3, 0, 0, 0, 0, 0,

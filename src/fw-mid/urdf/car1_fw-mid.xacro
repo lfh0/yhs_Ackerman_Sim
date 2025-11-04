@@ -4,7 +4,7 @@
 
     <xacro:include filename="$(find fw-mid)/urdf/car1_macros.xacro" />
     
-    <link name="base_footprint">
+    <link name="car1_base_footprint">
         <!-- <visual>
             <geometry>
                 <sphere radius="0.001" />
@@ -40,10 +40,10 @@
 
     </link>
 
-    <joint name="base_link2base_footprint" type="fixed">
-        <parent link="base_footprint" />
+    <joint name="base_link2car1_base_footprint" type="fixed">
+        <parent link="car1_base_footprint" />
         <child link="base_link"/>
-        <origin xyz="0 0 0.032" />
+        <origin xyz="0 0 0.12" />
     </joint>
 
 

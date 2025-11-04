@@ -19,6 +19,13 @@
                 front_left_steering_position_controller 
                 rear_right_steering_position_controller 
                 rear_left_steering_position_controller"/>
+
+    <node name="robot_state_publisher1" pkg="robot_state_publisher" type="robot_state_publisher"
+      respawn="false" output="screen">
+      <remap from="/joint_states" to="/car1/joint_states" />
+      <param name="robot_description" value="car1_robot_description" />
+    </node>
+
   </group>
 
   <group ns="car2">
@@ -34,18 +41,13 @@
                 front_left_steering_position_controller 
                 rear_right_steering_position_controller 
                 rear_left_steering_position_controller"/>
-  </group>
 
-  <node name="robot_state_publisher1" pkg="robot_state_publisher" type="robot_state_publisher"
-      respawn="false" output="screen">
-      <remap from="/joint_states" to="/car1/joint_states" />
-  </node>
-
-  <node name="robot_state_publisher2" pkg="robot_state_publisher" type="robot_state_publisher"
+    <node name="robot_state_publisher2" pkg="robot_state_publisher" type="robot_state_publisher"
       respawn="false" output="screen">
       <remap from="/joint_states" to="/car2/joint_states" />
-  </node>
-
+      <param name="robot_description" value="car2_robot_description" />
+    </node>
+  </group>
 
   <node name="cmdvel2gazebo1" pkg="fw-mid" type="cmdvel2gazebo1.py" respawn="true" output="screen">
     <param name="gear" type="int" value="7" />

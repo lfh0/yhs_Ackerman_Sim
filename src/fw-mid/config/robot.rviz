@@ -10,7 +10,9 @@ Panels:
         - /Odometry1/Shape1
         - /TF1
         - /TF1/Frames1
-        - /RobotModel1/Links1/right_steering_hinge1
+        - /RobotModel1
+        - /move_base1
+        - /Axes1
       Splitter Ratio: 0.5892857313156128
     Tree Height: 1660
   - Class: rviz/Selection
@@ -118,15 +120,15 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_footprint:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
         base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
+        car1_base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         imu_link:
           Alpha: 1
           Show Axes: false
@@ -178,7 +180,7 @@ Visualization Manager:
           Show Trail: false
           Value: true
       Name: RobotModel
-      Robot Description: robot_description
+      Robot Description: car1/robot_description
       TF Prefix: ""
       Update Interval: 0
       Value: true
@@ -210,11 +212,20 @@ Visualization Manager:
       Reference Frame: mid360_link
       Show Trail: false
       Value: true
+    - Alpha: 1
+      Class: rviz/Axes
+      Enabled: true
+      Length: 1
+      Name: Axes
+      Radius: 0.0010000000474974513
+      Reference Frame: car1_base_footprint
+      Show Trail: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: base_footprint
+    Fixed Frame: car1_base_footprint
     Frame Rate: 30
   Name: root
   Tools:
@@ -238,7 +249,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.241315484046936
+      Distance: 1.2405762672424316
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -246,17 +257,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -0.07284720242023468
-        Y: -0.02571636065840721
-        Z: 0.4277130365371704
+        X: -0.23831862211227417
+        Y: 0.47475090622901917
+        Z: 0.050533145666122437
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5147974491119385
+      Pitch: 0.04979817941784859
       Target Frame: <Fixed Frame>
-      Yaw: 3.0616681575775146
+      Yaw: 2.1166646480560303
     Saved: ~
 Window Geometry:
   Displays:
