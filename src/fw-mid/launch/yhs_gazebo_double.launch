@@ -35,17 +35,13 @@
   </include>
 
 	<!-- 加载机器人模型描述参数 -->
-  <group ns="car1">
-    <param name="vehicle_name" value="car1"/>
-    <param name="car1_robot_description" command="$(find xacro)/xacro --inorder '$(find fw-mid)/urdf/car1_fw-mid.xacro'"/>
-    <node name="spawn_car1" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model car1 -param car1_robot_description -x $(arg car1_x_pos) -y $(arg car1_y_pos) -z $(arg car1_z_pos) -R $(arg car1_R_pos) -P $(arg car1_P_pos) -Y $(arg car1_Y_pos)" />
-  </group>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find fw-mid)/urdf/car1_fw-mid.xacro'"/>
 
-  <group ns="car2">
-    <param name="vehicle_name" value="car2"/>
-    <param name="car2_robot_description" command="$(find xacro)/xacro --inorder '$(find fw-mid)/urdf/car2_fw-mid.xacro'"/>
-    <node name="spawn_car2" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model car2 -param car2_robot_description -x $(arg car2_x_pos) -y $(arg car2_y_pos) -z $(arg car2_z_pos) -R $(arg car2_R_pos) -P $(arg car2_P_pos) -Y $(arg car2_Y_pos)" />
-  </group>
+  <param name="/car1/car1_robot_description" command="$(find xacro)/xacro --inorder '$(find fw-mid)/urdf/car1_fw-mid.xacro'"/>
+  <node name="spawn_car1" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model car1 -param car1/car1_robot_description -x $(arg car1_x_pos) -y $(arg car1_y_pos) -z $(arg car1_z_pos) -R $(arg car1_R_pos) -P $(arg car1_P_pos) -Y $(arg car1_Y_pos)" />
+
+  <param name="/car2/car2_robot_description" command="$(find xacro)/xacro --inorder '$(find fw-mid)/urdf/car2_fw-mid.xacro'"/>
+  <node name="spawn_car2" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model car2 -param car2/car2_robot_description -x $(arg car2_x_pos) -y $(arg car2_y_pos) -z $(arg car2_z_pos) -R $(arg car2_R_pos) -P $(arg car2_P_pos) -Y $(arg car2_Y_pos)" />
 
   
   <node name="robot_rviz" pkg="rviz" type="rviz" args="-d $(find fw-mid)/config/robot.rviz" />

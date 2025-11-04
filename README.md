@@ -72,5 +72,9 @@ line:
 
 
 ## 遗留问题
-在rviz中无法显示多车的模型
+1.在rviz中无法显示多车的模型
+
 若在launch中直接添加link前缀会导致在xacro文件中只有不带前缀的link链接关系，在rviz中没有加了前缀之后的连接关系导致模型加载失败无法显示，暂时没有好的解决办法，或许需要为不同的xacro文件修改link名使用不同的前缀。
+
+2.robot_description问题
+控制器需要加载robot_description参数，不知在哪里修改这个命名，现在的解决办法是加载了两套参数，robot_description和car1_robot_description

@@ -6,49 +6,50 @@
   <rosparam file="$(find fw-mid)/config/smart_control_config.yaml" command="load"/>
 
   <!-- load controllers -->
-  <group ns="car1">
-    <param name="vehicle_name" value="car1"/>
-    <node name="controller_spawner_1" pkg="controller_manager" type="spawner" respawn="false"
-          output="screen"
-          args="joint_state_controller 
-                rear_right_velocity_controller 
-                rear_left_velocity_controller 
-                front_right_velocity_controller 
-                front_left_velocity_controller  
-                front_right_steering_position_controller
-                front_left_steering_position_controller 
-                rear_right_steering_position_controller 
-                rear_left_steering_position_controller"/>
+  <node name="controller_spawner_1" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen"
+        ns="/car1"
+        args="
+              joint_state_controller 
+              rear_right_velocity_controller 
+              rear_left_velocity_controller 
+              front_right_velocity_controller 
+              front_left_velocity_controller  
+              front_right_steering_position_controller
+              front_left_steering_position_controller 
+              rear_right_steering_position_controller 
+              rear_left_steering_position_controller">
+    <remap from="/robot_description" to="/car1_robot_description" />
+  </node>
 
-    <node name="robot_state_publisher1" pkg="robot_state_publisher" type="robot_state_publisher"
-      respawn="false" output="screen">
-      <remap from="/joint_states" to="/car1/joint_states" />
-      
-      <param name="robot_description" value="car1_robot_description" />
+  <node name="controller_spawner_2" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen"
+        ns="/car2"
+        args="
+              joint_state_controller 
+              rear_right_velocity_controller 
+              rear_left_velocity_controller 
+              front_right_velocity_controller 
+              front_left_velocity_controller  
+              front_right_steering_position_controller
+              front_left_steering_position_controller 
+              rear_right_steering_position_controller 
+              rear_left_steering_position_controller">
+    <remap from="/robot_description" to="/car2_robot_description" />
+  </node>
 
-    </node>
-  </group>
+  <node name="robot_state_publisher1" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="true" output="screen" ns="/car1">
+    <remap from="/joint_states" to="/car1/joint_states" />
+    <remap from="robot_description" to="car1_robot_description" />
+  </node>
 
-  <group ns="car2">
-    <param name="vehicle_name" value="car2"/>
-    <node name="controller_spawner_2" pkg="controller_manager" type="spawner" respawn="false"
-          output="screen"
-          args="joint_state_controller 
-                rear_right_velocity_controller 
-                rear_left_velocity_controller 
-                front_right_velocity_controller 
-                front_left_velocity_controller  
-                front_right_steering_position_controller
-                front_left_steering_position_controller 
-                rear_right_steering_position_controller 
-                rear_left_steering_position_controller"/>
 
-    <node name="robot_state_publisher2" pkg="robot_state_publisher" type="robot_state_publisher"
-      respawn="false" output="screen">
-      <remap from="/joint_states" to="/car2/joint_states" />
-      <param name="robot_description" value="car2_robot_description" />
-    </node>
-  </group>
+  <node name="robot_state_publisher2" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="true" output="screen" ns="/car2">
+    <remap from="/joint_states" to="/car2/joint_states" />
+    <remap from="robot_description" to="car2_robot_description" />
+  </node>
 
   <node name="cmdvel2gazebo1" pkg="fw-mid" type="cmdvel2gazebo1.py" respawn="true" output="screen">
     <param name="gear" type="int" value="7" />
