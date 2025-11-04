@@ -23,9 +23,10 @@
     <node name="robot_state_publisher1" pkg="robot_state_publisher" type="robot_state_publisher"
       respawn="false" output="screen">
       <remap from="/joint_states" to="/car1/joint_states" />
+      
       <param name="robot_description" value="car1_robot_description" />
-    </node>
 
+    </node>
   </group>
 
   <group ns="car2">
