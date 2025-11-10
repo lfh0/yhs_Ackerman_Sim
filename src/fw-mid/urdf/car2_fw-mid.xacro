@@ -399,7 +399,7 @@
     <gazebo reference="mid360_link">
         <gravity>true</gravity>
         <sensor type="ray" name="laser_livox">
-            <pose>0 0 0.04412 0 0 0</pose>
+            <pose>0 0 0.04412 0 0 3.1415926</pose>
             <visualize>true</visualize>
             <always_on>True</always_on>
             <update_rate>10</update_rate>

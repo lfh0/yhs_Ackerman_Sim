@@ -30,7 +30,7 @@
   </node>
   
   <node name="cmdvel2gazebo1" pkg="fw-mid" type="cmdvel2gazebo1.py" respawn="true" output="screen">
-    <param name="gear" type="int" value="7" />
+    <param name="gear" type="int" value="6" />
   </node>
 
 </launch>
