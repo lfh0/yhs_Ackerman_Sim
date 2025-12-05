@@ -31,16 +31,17 @@ class CmdVel2Gazebo:
             ]
         ]
 
-        # 车辆参数
-        self.L = 0.4             # 轴距 (m)
-        self.T = 0.42            # 轮距 (m)
-        self.wheel_radius = 0.12  # 车轮半径 (m)
         self.gear = rospy.get_param('~gear', 6)
 
         if self.gear == 7 :
             self.base_max_steer = math.radians(90)  # 最大转向角
         else :
             self.base_max_steer = math.radians(45)
+            
+        # 车辆参数
+        self.L = 0.4             # 轴距 (m)
+        self.T = 0.42            # 轮距 (m)
+        self.wheel_radius = 0.12  # 车轮半径 (m)
         
         # 控制参数
         self.steer_rate_limit = 1.0    # 转向速率限制 (rad/s)
@@ -63,6 +64,11 @@ class CmdVel2Gazebo:
     def callback(self, msg):
         self.cmd_vel = (msg.linear.x, msg.angular.z)
         self.last_time = rospy.Time.now()
+        self.gear = rospy.get_param('~gear', 6)
+        if self.gear == 7 :
+            self.base_max_steer = math.radians(90)  # 最大转向角
+        else :
+            self.base_max_steer = math.radians(45)
 
     def control_loop(self):
         rate = rospy.Rate(30)  # 30Hz控制频率

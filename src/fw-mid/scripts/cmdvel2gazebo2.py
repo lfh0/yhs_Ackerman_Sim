@@ -63,6 +63,12 @@ class CmdVel2Gazebo:
     def callback(self, msg):
         self.cmd_vel = (msg.linear.x, msg.angular.z)
         self.last_time = rospy.Time.now()
+        self.gear = rospy.get_param('~gear', 6)
+
+        if self.gear == 7 :
+            self.base_max_steer = math.radians(90)  # 最大转向角
+        else :
+            self.base_max_steer = math.radians(45)
 
     def control_loop(self):
         rate = rospy.Rate(30)  # 30Hz控制频率

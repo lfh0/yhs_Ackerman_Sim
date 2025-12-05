@@ -45,11 +45,11 @@
   </node>
 
 
-  <node name="robot_state_publisher2" pkg="robot_state_publisher" type="robot_state_publisher"
+  <!-- <node name="robot_state_publisher2" pkg="robot_state_publisher" type="robot_state_publisher"
     respawn="true" output="screen" ns="/car2">
     <remap from="/joint_states" to="/car2/joint_states" />
     <remap from="robot_description" to="car2_robot_description" />
-  </node>
+  </node> -->
 
   <node name="cmdvel2gazebo1" pkg="fw-mid" type="cmdvel2gazebo1.py" respawn="true" output="screen">
     <param name="gear" type="int" value="7" />
